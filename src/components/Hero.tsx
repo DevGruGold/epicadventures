@@ -1,36 +1,103 @@
 
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ArrowDown } from "lucide-react";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const [activeExperience, setActiveExperience] = useState(0);
+
+  const experiences = [
+    {
+      id: "romance",
+      title: "Romantic Escape",
+      subtitle: "Private Luxury for Two",
+      description: "Indulge in exclusive moments with your special someone in the most breathtaking settings of Costa Rica.",
+      image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop",
+      color: "from-pink-900/70 to-primary/80"
+    },
+    {
+      id: "eco",
+      title: "Eco Explorer",
+      subtitle: "Sustainable Luxury in Nature",
+      description: "Immerse yourself in Costa Rica's rich biodiversity with exclusive access to pristine natural wonders.",
+      image: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=1000&auto=format&fit=crop",
+      color: "from-green-900/70 to-primary/80"
+    },
+    {
+      id: "adventure",
+      title: "Epic Adventure",
+      subtitle: "Adrenaline & Luxury Combined",
+      description: "Experience heart-racing adventures by day and unparalleled luxury by night in Costa Rica's most stunning locations.",
+      image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?q=80&w=1000&auto=format&fit=crop",
+      color: "from-blue-900/70 to-primary/80"
+    }
+  ];
+
+  const currentExperience = experiences[activeExperience];
 
   return (
     <div className="relative h-screen">
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
         style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1501286353178-1ec881214838)`,
+          backgroundImage: `url(${currentExperience.image})`,
         }}
       >
-        <div className="absolute inset-0 hero-gradient" />
+        <div className={`absolute inset-0 bg-gradient-to-b ${currentExperience.color}`} />
       </div>
       
-      <div className="relative container h-full flex items-center">
-        <div className="max-w-2xl animate-fade-up">
-          <h1 className="text-4xl md:text-7xl text-white font-bold mb-6 font-display italic">
-            Luxury Adventures in Costa Rica
+      <div className="relative container h-full flex flex-col justify-center">
+        <div className="max-w-2xl animate-fade-up mt-16">
+          <span className="text-secondary font-medium tracking-wider mb-2 inline-block">
+            {currentExperience.subtitle}
+          </span>
+          <h1 className="text-4xl md:text-7xl text-white font-bold mb-4 font-display italic">
+            {currentExperience.title}
           </h1>
           <p className="text-xl text-white/90 mb-8 font-light">
-            Experience the ultimate in exclusive travel with private helicopters,
-            luxury vehicles, and bespoke experiences.
+            {currentExperience.description}
           </p>
-          <Button
-            onClick={() => navigate("/experiences")}
-            className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+          <div className="flex flex-wrap gap-4">
+            <Button
+              onClick={() => navigate("/experiences")}
+              className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-base"
+            >
+              Explore This Experience
+            </Button>
+            <Button
+              variant="outline"
+              className="border-white text-white hover:bg-white/20 hover:text-white"
+              onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              View All Packages
+            </Button>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+          <Button 
+            variant="ghost" 
+            className="text-white rounded-full p-2 hover:bg-white/20"
+            onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Explore Experiences
+            <ArrowDown className="h-6 w-6" />
+            <span className="sr-only">Scroll down</span>
           </Button>
+        </div>
+        
+        <div className="absolute bottom-32 right-10 flex flex-col gap-3 z-10">
+          {experiences.map((exp, index) => (
+            <button
+              key={exp.id}
+              className={`w-3 h-3 rounded-full transition-all ${
+                activeExperience === index ? "bg-secondary w-6" : "bg-white/50 hover:bg-white"
+              }`}
+              onClick={() => setActiveExperience(index)}
+              aria-label={`View ${exp.title} experience`}
+            />
+          ))}
         </div>
       </div>
     </div>

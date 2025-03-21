@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
-import { CalendarIcon, Users } from "lucide-react";
+import { CalendarIcon, Users, MapPin, Star } from "lucide-react";
 import { toast } from "sonner";
 
 const packages = [
@@ -16,14 +16,20 @@ const packages = [
     title: "Romantic Escape",
     description: "A luxurious romantic getaway for couples seeking privacy and indulgence.",
     price: 10000,
+    location: "Pacific Coast & Central Highlands",
+    rating: 5,
+    duration: "7-10 days",
     features: [
-      "Private villa accommodations",
-      "Couples spa treatments",
-      "Candlelit beach dinners",
-      "Private helicopter transfers",
-      "Sunset sailing excursion",
-      "Waterfall hikes with private guide"
+      "Private villa accommodations with infinity pools overlooking the ocean",
+      "Couples spa treatments featuring indigenous ingredients and techniques",
+      "Candlelit beach dinners under the stars with personal chef",
+      "Private helicopter transfers between exclusive locations",
+      "Sunset sailing excursion with champagne and gourmet appetizers",
+      "Private waterfall hikes with secluded swimming spots",
+      "Couple's photoshoot in breathtaking settings",
+      "Sunrise hot air balloon ride over the rainforest canopy"
     ],
+    highlights: "Exclusive access to hidden beaches and private nature reserves that are closed to the public. Experience a once-in-a-lifetime dinner inside a volcanic cave lit by hundreds of candles.",
     image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop"
   },
   {
@@ -31,14 +37,20 @@ const packages = [
     title: "Eco Explorer",
     description: "Immerse yourself in Costa Rica's biodiversity with premium eco-luxury experiences.",
     price: 20000,
+    location: "Monteverde & Osa Peninsula",
+    rating: 5,
+    duration: "10-14 days",
     features: [
-      "Sustainable luxury treehouse stay",
-      "Private wildlife sanctuary tours",
-      "Cloud forest expeditions",
-      "Range Rover transfers to remote locations",
-      "Private chef featuring local cuisine",
-      "Exclusive access to conservation areas"
+      "Sustainable luxury treehouse accommodations in pristine rainforest",
+      "Private wildlife sanctuary tours with renowned naturalists",
+      "Cloud forest expeditions to photograph rare species",
+      "Luxury Range Rover transfers to remote conservation areas",
+      "Private chef featuring organic, locally-sourced cuisine",
+      "Exclusive nighttime jungle expeditions with infrared technology",
+      "Conservation activities alongside researchers studying endangered species",
+      "Helicopter tour over active volcanoes and primary rainforest"
     ],
+    highlights: "Be among the few to access restricted areas of national parks with special permits. Participate in releasing endangered sea turtle hatchlings in a moonlit ceremony on a protected beach.",
     image: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=1000&auto=format&fit=crop"
   },
   {
@@ -46,14 +58,20 @@ const packages = [
     title: "Epic Adventure",
     description: "The ultimate friend group adventure with adrenaline-pumping experiences.",
     price: 30000,
+    location: "Arenal & Pacuare River",
+    rating: 5,
+    duration: "12-15 days",
     features: [
-      "Luxury villa with private infinity pool",
-      "Helicopter volcano tours",
-      "Private yacht excursions",
-      "White water rafting expeditions",
-      "Zip-lining through pristine rainforest",
-      "Personal adventure concierge 24/7"
+      "Luxury villa compound with private infinity pools overlooking volcanoes",
+      "Exclusive helicopter volcano tours with landing on inaccessible peaks",
+      "Private yacht excursions to hidden snorkeling and diving locations",
+      "Class IV-V white water rafting expeditions with premier guides",
+      "Extreme zip-lining courses created exclusively for your group",
+      "Canyoning and rappelling down 200-foot waterfalls",
+      "ATV expeditions to remote beaches and mountain viewpoints",
+      "Personal adventure concierge 24/7 with satellite communication"
     ],
+    highlights: "Experience the ultimate adrenaline rush with our custom-built cliff jumping platforms accessible only by helicopter. End each adventure-filled day with a chef's table dining experience featuring molecular gastronomy and local ingredients.",
     image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?q=80&w=1000&auto=format&fit=crop"
   }
 ];
@@ -111,19 +129,19 @@ const Packages = () => {
   };
 
   return (
-    <div className="bg-white py-24">
+    <div id="packages" className="bg-white py-24">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-display mb-4">Exclusive Packages</h2>
+          <h2 className="text-4xl md:text-5xl font-display italic mb-4">Exclusive Packages</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Curated luxury experiences in Costa Rica's most breathtaking locations.
+            Curated luxury experiences in Costa Rica's most breathtaking locations, designed for those who seek the extraordinary.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {packages.map((pkg) => (
-            <Card key={pkg.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 overflow-hidden">
+            <Card key={pkg.id} className="overflow-hidden hover:shadow-lg transition-shadow border-none ring-1 ring-gray-200">
+              <div className="h-56 overflow-hidden">
                 <img 
                   src={pkg.image} 
                   alt={pkg.title} 
@@ -131,18 +149,44 @@ const Packages = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="font-display text-2xl">{pkg.title}</CardTitle>
+                <div className="flex justify-between items-start">
+                  <CardTitle className="font-display text-2xl">{pkg.title}</CardTitle>
+                  <div className="flex items-center text-secondary">
+                    <Star className="fill-secondary text-secondary h-4 w-4" />
+                    <span className="text-sm ml-1">{pkg.rating}.0</span>
+                  </div>
+                </div>
+                <div className="flex items-center text-muted-foreground text-sm mb-2">
+                  <MapPin className="h-4 w-4 mr-1" />
+                  <span>{pkg.location}</span>
+                </div>
                 <CardDescription className="text-base">{pkg.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-display mb-4">${pkg.price.toLocaleString()} <span className="text-sm font-sans text-muted-foreground">per person</span></p>
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-2xl font-display text-primary">${pkg.price.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">{pkg.duration}</p>
+                </div>
+                
+                <div className="mb-4">
+                  <h4 className="font-medium text-lg mb-2">Package Highlights:</h4>
+                  <p className="text-muted-foreground italic">{pkg.highlights}</p>
+                </div>
+                
+                <h4 className="font-medium text-lg mb-2">What's Included:</h4>
                 <ul className="space-y-2">
-                  {pkg.features.map((feature, index) => (
+                  {pkg.features.slice(0, 5).map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-secondary mr-2">•</span>
-                      <span>{feature}</span>
+                      <span className="text-sm">{feature}</span>
                     </li>
                   ))}
+                  {pkg.features.length > 5 && (
+                    <li className="text-secondary text-sm italic cursor-pointer hover:underline" 
+                        onClick={() => handleBookNow(pkg.id)}>
+                      + {pkg.features.length - 5} more incredible experiences...
+                    </li>
+                  )}
                 </ul>
               </CardContent>
               <CardFooter>
@@ -150,7 +194,7 @@ const Packages = () => {
                   className="w-full bg-primary hover:bg-primary/90" 
                   onClick={() => handleBookNow(pkg.id)}
                 >
-                  Book Now
+                  Book This Experience
                 </Button>
               </CardFooter>
             </Card>
@@ -167,6 +211,27 @@ const Packages = () => {
             </SheetHeader>
 
             <div className="py-6">
+              {selectedPackage && (
+                <div className="mb-6">
+                  <h3 className="font-display text-xl mb-2">
+                    {packages.find(p => p.id === selectedPackage)?.title}
+                  </h3>
+                  <div className="bg-muted p-4 rounded-md max-h-60 overflow-y-auto">
+                    <h4 className="font-medium mb-2">Full Experience Includes:</h4>
+                    <ul className="space-y-2">
+                      {packages
+                        .find(p => p.id === selectedPackage)
+                        ?.features.map((feature, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-secondary mr-2">•</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
