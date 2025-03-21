@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -16,7 +17,7 @@ const Navbar = () => {
     <nav className="fixed w-full bg-background/80 backdrop-blur-md z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="font-display text-2xl">
+          <Link to="/" className="font-display text-3xl font-bold italic tracking-wide text-secondary">
             Epic Adventures
           </Link>
 
@@ -34,7 +35,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-foreground hover:text-secondary transition-colors"
+                className="text-white hover:text-secondary transition-colors font-medium"
               >
                 {item.name}
               </Link>
@@ -49,7 +50,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="block px-4 py-2 text-foreground hover:text-secondary transition-colors"
+                className="block px-4 py-2 text-white hover:text-secondary transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
