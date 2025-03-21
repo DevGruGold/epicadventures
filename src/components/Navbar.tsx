@@ -24,7 +24,8 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden"
+            className="md:hidden text-white hover:text-secondary transition-colors"
+            aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -45,17 +46,19 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md py-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="block px-4 py-2 text-white hover:text-secondary transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="md:hidden absolute top-20 left-0 right-0 bg-accent/95 backdrop-blur-xl shadow-lg border-t border-secondary/20 py-4 z-50 animate-fade-up">
+            <div className="container mx-auto px-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="block px-6 py-3 text-white hover:bg-secondary/10 hover:text-secondary rounded-md transition-all duration-200 font-medium mb-1"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </div>
