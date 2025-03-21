@@ -18,10 +18,10 @@ const Hero = () => {
       
       <div className="relative container h-full flex items-center">
         <div className="max-w-2xl animate-fade-up">
-          <h1 className="text-4xl md:text-6xl text-white font-bold mb-6">
+          <h1 className="text-4xl md:text-7xl text-white font-bold mb-6 font-display italic">
             Luxury Adventures in Costa Rica
           </h1>
-          <p className="text-xl text-white/90 mb-8">
+          <p className="text-xl text-white/90 mb-8 font-light">
             Experience the ultimate in exclusive travel with private helicopters,
             luxury vehicles, and bespoke experiences.
           </p>
