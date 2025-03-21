@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +10,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1506744038136-46273834b3fb)`,
+          backgroundImage: `url(https://images.unsplash.com/photo-1501286353178-1ec881214838)`,
         }}
       >
         <div className="absolute inset-0 hero-gradient" />
