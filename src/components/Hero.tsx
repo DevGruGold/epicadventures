@@ -48,27 +48,27 @@ const Hero = () => {
         <div className={`absolute inset-0 bg-gradient-to-b ${currentExperience.color}`} />
       </div>
       
-      <div className="relative container h-full flex flex-col justify-center">
-        <div className="max-w-2xl animate-fade-up mt-16">
-          <span className="text-secondary font-medium tracking-wider mb-2 inline-block">
+      <div className="relative container h-full flex flex-col justify-center px-4 md:px-6">
+        <div className="max-w-2xl animate-fade-up mt-16 md:mt-20">
+          <span className="text-secondary font-medium tracking-wider mb-2 inline-block text-sm md:text-base">
             {currentExperience.subtitle}
           </span>
-          <h1 className="text-4xl md:text-7xl text-white font-bold mb-4 font-display italic">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-4 font-display italic leading-tight">
             {currentExperience.title}
           </h1>
-          <p className="text-xl text-white/90 mb-8 font-light">
+          <p className="text-lg md:text-xl text-white/90 mb-6 md:mb-8 font-light leading-relaxed">
             {currentExperience.description}
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
             <Button
               onClick={() => navigate("/experiences")}
-              className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-base"
+              className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-base py-3 px-6 w-full sm:w-auto"
             >
               Explore This Experience
             </Button>
             <Button
               variant="outline"
-              className="border-white text-white hover:bg-white/20 hover:text-white"
+              className="border-white text-white hover:bg-white/20 hover:text-white py-3 px-6 w-full sm:w-auto"
               onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View All Packages
@@ -76,7 +76,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+        <div className="absolute bottom-6 md:bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <Button 
             variant="ghost" 
             className="text-white rounded-full p-2 hover:bg-white/20"
@@ -87,7 +87,7 @@ const Hero = () => {
           </Button>
         </div>
         
-        <div className="absolute bottom-32 right-10 flex flex-col gap-3 z-10">
+        <div className="absolute bottom-20 md:bottom-32 right-4 md:right-10 flex flex-col gap-3 z-10">
           {experiences.map((exp, index) => (
             <button
               key={exp.id}

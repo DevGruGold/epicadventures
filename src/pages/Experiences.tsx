@@ -1,5 +1,10 @@
 
+import Navbar from "@/components/Navbar";
 import PackageCard from "@/components/PackageCard";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const packages = [
   {
@@ -67,25 +72,40 @@ const packages = [
   }
 ];
 
-const Packages = () => {
+const Experiences = () => {
   return (
-    <div id="packages" className="bg-white py-16 md:py-24">
-      <div className="container">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display italic mb-4">Exclusive Packages</h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Curated luxury experiences in Costa Rica's most breathtaking locations, designed for those who seek the extraordinary.
-          </p>
-        </div>
+    <div className="min-h-screen bg-white">
+      <Navbar />
+      
+      <div className="pt-20 pb-16">
+        <div className="container">
+          <div className="mb-8">
+            <Link to="/">
+              <Button variant="ghost" className="mb-4 text-muted-foreground hover:text-primary">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+              </Button>
+            </Link>
+            <h1 className="text-4xl md:text-6xl font-display italic mb-6">
+              Our Exclusive Experiences
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              Each experience is meticulously crafted to provide unparalleled luxury and adventure 
+              in Costa Rica's most breathtaking locations. Choose your perfect escape.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {packages.map((pkg) => (
-            <PackageCard key={pkg.id} package={pkg} compact />
-          ))}
+          <div className="grid gap-12">
+            {packages.map((pkg) => (
+              <PackageCard key={pkg.id} package={pkg} />
+            ))}
+          </div>
         </div>
       </div>
+      
+      <WhatsAppButton />
     </div>
   );
 };
 
-export default Packages;
+export default Experiences;
