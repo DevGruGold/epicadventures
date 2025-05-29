@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -228,26 +227,17 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent className="overflow-y-auto w-full sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle className="font-display text-2xl">Request Booking</SheetTitle>
+          <SheetTitle className="font-display text-2xl">Book Your Experience</SheetTitle>
           <SheetDescription>
-            Fill out the form below to request a booking. No payment is required at this time.
+            Complete your booking details below. No payment required at this time.
           </SheetDescription>
         </SheetHeader>
 
         <div className="py-6">
-          <div className="mb-6">
-            <h3 className="font-display text-xl mb-2">{pkg.title}</h3>
-            <div className="bg-muted p-4 rounded-md max-h-60 overflow-y-auto">
-              <h4 className="font-medium mb-2">Full Experience Includes:</h4>
-              <ul className="space-y-2">
-                {pkg.features.map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-secondary mr-2">•</span>
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mb-6 p-4 bg-muted/50 rounded-lg">
+            <h3 className="font-display text-lg mb-1">{pkg.title}</h3>
+            <p className="text-sm text-muted-foreground mb-2">{pkg.location} • {pkg.duration}</p>
+            <p className="text-xl font-semibold text-primary">${pkg.price.toLocaleString()} per person</p>
           </div>
 
           <Form {...form}>
@@ -261,7 +251,7 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                     <FormControl>
                       <div className="flex items-center">
                         <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                        <Input type="date" {...field} required />
+                        <Input type="date" {...field} required className="flex-1" />
                       </div>
                     </FormControl>
                   </FormItem>
@@ -334,17 +324,18 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                 )}
               />
 
-              <div className="border p-4 rounded-md bg-muted/30 space-y-2 text-sm">
-                <h4 className="font-medium">Booking Process:</h4>
-                <p>No payment is required to request a booking.</p>
-                <p>After receiving your request, we'll send a detailed contract with all available adventure options.</p>
-                <p>Once your itinerary is finalized, a 50% non-refundable deposit is required upon signing.</p>
-                <p>The remaining 50% will be due after your first adventure in Costa Rica.</p>
+              <div className="border-t pt-4 mt-6">
+                <div className="text-sm text-muted-foreground space-y-1 mb-4">
+                  <p>• No payment required to request booking</p>
+                  <p>• We'll send you a detailed contract with adventure options</p>
+                  <p>• 50% deposit required upon contract signing</p>
+                  <p>• Remaining 50% due after your first adventure</p>
+                </div>
+                
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-lg py-3">
+                  Send Booking Request via WhatsApp
+                </Button>
               </div>
-              
-              <Button type="submit" className="w-full">
-                Submit Booking Request
-              </Button>
             </form>
           </Form>
         </div>
