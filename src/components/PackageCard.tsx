@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,8 +7,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
-import { CalendarIcon, MapPin, Star } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import { toast } from "sonner";
+import DatePicker from "@/components/DatePicker";
 
 type Package = {
   id: string;
@@ -23,7 +25,7 @@ type Package = {
 };
 
 type BookingFormValues = {
-  travelDate: string;
+  travelDate: Date | undefined;
   guests: string;
   name: string;
   email: string;
@@ -40,7 +42,7 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
   
   const form = useForm<BookingFormValues>({
     defaultValues: {
-      travelDate: "",
+      travelDate: undefined,
       guests: "2",
       name: "",
       email: "",
@@ -48,18 +50,29 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
     }
   });
 
+  const isRomanticPackage = pkg.id === "romance";
+  const packagePrice = isRomanticPackage ? 20000 : pkg.price;
+
   const onSubmit = (data: BookingFormValues) => {
-    const totalPrice = parseInt(data.guests) * pkg.price;
+    if (!data.travelDate) {
+      toast.error("Please select a travel date");
+      return;
+    }
+
+    const guestCount = isRomanticPackage ? 2 : parseInt(data.guests);
+    const totalPrice = isRomanticPackage ? packagePrice : packagePrice * guestCount;
     
     const message = encodeURIComponent(
-      `Booking Request:\n` +
-      `Package: ${pkg.title}\n` +
-      `Travel Date: ${data.travelDate}\n` +
-      `Guests: ${data.guests}\n` +
+      `🌟 LUXURY COSTA RICA BOOKING REQUEST 🌟\n\n` +
+      `📦 Package: ${pkg.title}\n` +
+      `📅 Travel Date: ${data.travelDate.toLocaleDateString()}\n` +
+      `👥 Guests: ${guestCount} ${guestCount === 1 ? 'person' : 'people'}\n` +
+      `💰 Total Investment: $${totalPrice.toLocaleString()}\n\n` +
+      `📞 Contact Details:\n` +
       `Name: ${data.name}\n` +
       `Email: ${data.email}\n` +
-      `Phone: ${data.phone}\n` +
-      `Total Price: $${totalPrice.toLocaleString()}`
+      `Phone: ${data.phone}\n\n` +
+      `I'm interested in booking this exclusive experience. Please send me the detailed itinerary and contract.`
     );
     
     window.open(`https://wa.me/50661500559?text=${message}`, "_blank");
@@ -95,7 +108,12 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
           </CardHeader>
           <CardContent>
             <div className="flex justify-between items-center mb-4">
-              <p className="text-2xl font-display text-primary">${pkg.price.toLocaleString()}</p>
+              <div>
+                <p className="text-2xl font-display text-primary">${packagePrice.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">
+                  {isRomanticPackage ? "total package for 2" : "per person"}
+                </p>
+              </div>
               <p className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full">{pkg.duration}</p>
             </div>
             
@@ -136,6 +154,8 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
           package={pkg}
           form={form}
           onSubmit={onSubmit}
+          isRomanticPackage={isRomanticPackage}
+          packagePrice={packagePrice}
         />
       </>
     );
@@ -179,8 +199,10 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
           
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-3xl font-display text-primary">${pkg.price.toLocaleString()}</p>
-              <p className="text-sm text-muted-foreground">per person</p>
+              <p className="text-3xl font-display text-primary">${packagePrice.toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">
+                {isRomanticPackage ? "total package for 2" : "per person"}
+              </p>
             </div>
             <Button 
               size="lg"
@@ -209,6 +231,8 @@ const PackageCard = ({ package: pkg, compact = false }: PackageCardProps) => {
         package={pkg}
         form={form}
         onSubmit={onSubmit}
+        isRomanticPackage={isRomanticPackage}
+        packagePrice={packagePrice}
       />
     </>
   );
@@ -220,24 +244,43 @@ interface BookingSheetProps {
   package: Package;
   form: any;
   onSubmit: (data: BookingFormValues) => void;
+  isRomanticPackage: boolean;
+  packagePrice: number;
 }
 
-const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: BookingSheetProps) => {
+const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit, isRomanticPackage, packagePrice }: BookingSheetProps) => {
+  const watchedGuests = form.watch("guests");
+  const guestCount = isRomanticPackage ? 2 : parseInt(watchedGuests || "2");
+  const totalPrice = isRomanticPackage ? packagePrice : packagePrice * guestCount;
+
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="overflow-y-auto w-full sm:max-w-lg">
-        <SheetHeader>
+      <SheetContent className="overflow-y-auto w-full sm:max-w-lg bg-white/95 backdrop-blur-md border-l shadow-2xl z-[50]">
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm -z-10" />
+        <SheetHeader className="relative z-10">
           <SheetTitle className="font-display text-2xl">Book Your Experience</SheetTitle>
           <SheetDescription>
             Complete your booking details below. No payment required at this time.
           </SheetDescription>
         </SheetHeader>
 
-        <div className="py-6">
-          <div className="mb-6 p-4 bg-muted/50 rounded-lg">
+        <div className="py-6 relative z-10">
+          <div className="mb-6 p-4 bg-white/80 backdrop-blur-sm rounded-lg border">
             <h3 className="font-display text-lg mb-1">{pkg.title}</h3>
             <p className="text-sm text-muted-foreground mb-2">{pkg.location} • {pkg.duration}</p>
-            <p className="text-xl font-semibold text-primary">${pkg.price.toLocaleString()} per person</p>
+            <div className="flex justify-between items-center">
+              <p className="text-xl font-semibold text-primary">${packagePrice.toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">
+                {isRomanticPackage ? "total for 2 people" : "per person"}
+              </p>
+            </div>
+            {!isRomanticPackage && (
+              <div className="mt-2 pt-2 border-t">
+                <p className="text-lg font-semibold text-primary">
+                  Total: ${totalPrice.toLocaleString()} for {guestCount} {guestCount === 1 ? 'person' : 'people'}
+                </p>
+              </div>
+            )}
           </div>
 
           <Form {...form}>
@@ -249,41 +292,44 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                   <FormItem>
                     <FormLabel>Travel Date</FormLabel>
                     <FormControl>
-                      <div className="flex items-center">
-                        <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                        <Input type="date" {...field} required className="flex-1" />
-                      </div>
+                      <DatePicker
+                        date={field.value}
+                        onSelect={field.onChange}
+                        placeholder="Select your arrival date"
+                      />
                     </FormControl>
                   </FormItem>
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="guests"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Number of Guests</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select number of guests" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5, 6, 8, 10, 12].map((num) => (
-                          <SelectItem key={num} value={num.toString()}>
-                            {num} {num === 1 ? 'Guest' : 'Guests'}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
+              {!isRomanticPackage && (
+                <FormField
+                  control={form.control}
+                  name="guests"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Number of Guests</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="bg-white border-2 focus:ring-2 focus:ring-primary focus:border-primary">
+                            <SelectValue placeholder="Select number of guests" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="bg-white border-2 shadow-lg z-[60]">
+                          {[1, 2, 3, 4, 5, 6, 8, 10, 12].map((num) => (
+                            <SelectItem key={num} value={num.toString()} className="hover:bg-gray-50">
+                              {num} {num === 1 ? 'Guest' : 'Guests'}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+              )}
               
               <FormField
                 control={form.control}
@@ -292,7 +338,7 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                   <FormItem>
                     <FormLabel>Your Name</FormLabel>
                     <FormControl>
-                      <Input {...field} required />
+                      <Input {...field} required className="bg-white border-2 focus:ring-2 focus:ring-primary focus:border-primary" />
                     </FormControl>
                   </FormItem>
                 )}
@@ -305,7 +351,7 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                   <FormItem>
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} required />
+                      <Input type="email" {...field} required className="bg-white border-2 focus:ring-2 focus:ring-primary focus:border-primary" />
                     </FormControl>
                   </FormItem>
                 )}
@@ -318,14 +364,14 @@ const BookingSheet = ({ isOpen, onOpenChange, package: pkg, form, onSubmit }: Bo
                   <FormItem>
                     <FormLabel>Phone Number</FormLabel>
                     <FormControl>
-                      <Input type="tel" {...field} />
+                      <Input type="tel" {...field} className="bg-white border-2 focus:ring-2 focus:ring-primary focus:border-primary" />
                     </FormControl>
                   </FormItem>
                 )}
               />
 
               <div className="border-t pt-4 mt-6">
-                <div className="text-sm text-muted-foreground space-y-1 mb-4">
+                <div className="text-sm text-muted-foreground space-y-1 mb-4 bg-blue-50 p-3 rounded-lg">
                   <p>• No payment required to request booking</p>
                   <p>• We'll send you a detailed contract with adventure options</p>
                   <p>• 50% deposit required upon contract signing</p>
