@@ -26,7 +26,7 @@ const packages = [
       "Sunrise hot air balloon ride over the rainforest canopy"
     ],
     highlights: "Exclusive access to hidden beaches and private nature reserves that are closed to the public. Experience a once-in-a-lifetime dinner inside a volcanic cave lit by hundreds of candles.",
-    image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop"
+    image: "/lovable-uploads/f576b76f-5883-4d29-b3a3-c8d57eb48429.png"
   },
   {
     id: "eco",
@@ -47,28 +47,34 @@ const packages = [
       "Helicopter tour over active volcanoes and primary rainforest"
     ],
     highlights: "Be among the few to access restricted areas of national parks with special permits. Participate in releasing endangered sea turtle hatchlings in a moonlit ceremony on a protected beach.",
-    image: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=1000&auto=format&fit=crop"
+    image: "/lovable-uploads/9dcd0c06-3ef4-42b8-8f2f-83a42016afd1.png"
   },
   {
     id: "adventure",
     title: "Epic Adventure",
-    description: "The ultimate friend group adventure with adrenaline-pumping experiences.",
+    description: "The ultimate bespoke adventure experience with heart-pounding activities and luxury recovery.",
     price: 30000,
     location: "Arenal & Pacuare River",
     rating: 5,
     duration: "12-15 days",
     features: [
-      "Luxury villa compound with private infinity pools overlooking volcanoes",
-      "Exclusive helicopter volcano tours with landing on inaccessible peaks",
-      "Private yacht excursions to hidden snorkeling and diving locations",
-      "Class IV-V white water rafting expeditions with premier guides",
-      "Extreme zip-lining courses created exclusively for your group",
-      "Canyoning and rappelling down 200-foot waterfalls",
-      "ATV expeditions to remote beaches and mountain viewpoints",
-      "Personal adventure concierge 24/7 with satellite communication"
+      "Custom-built cliff jumping platforms (30-80 feet) accessible only by helicopter",
+      "Exclusive volcano crater rim hiking with certified mountain guides",
+      "Class V+ white water rafting on untouched river sections with expert safety teams",
+      "Bespoke zip-line courses designed specifically for your group's skill level",
+      "Multi-pitch rock climbing on volcanic walls with professional climbing instructors",
+      "Canyoning expeditions down 200+ foot waterfalls with specialized equipment",
+      "Private helicopter access to remote adventure sites unavailable to the public",
+      "Night rappelling adventures with infrared equipment and safety lighting",
+      "Custom ATV trail creation through private reserves and hidden beaches",
+      "Extreme mountain biking on trails carved exclusively for your expedition",
+      "Deep sea fishing charters with captain and crew for marlin and sailfish",
+      "Luxury recovery suites with private massage therapists and recovery pools",
+      "Personal adventure concierge available 24/7 with satellite communication",
+      "Gourmet field dining experiences prepared by expedition chefs at remote locations"
     ],
-    highlights: "Experience the ultimate adrenaline rush with our custom-built cliff jumping platforms accessible only by helicopter. End each adventure-filled day with a chef's table dining experience featuring molecular gastronomy and local ingredients.",
-    image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?q=80&w=1000&auto=format&fit=crop"
+    highlights: "Every adventure is meticulously planned and executed by our team of extreme sports professionals. Experience activities that don't exist anywhere else - from our custom cliff jumping platforms built into volcanic rock faces to exclusive river sections opened just for your group. Each day ends with luxury recovery amenities including private spa treatments and chef-prepared meals in stunning wilderness settings.",
+    image: "/lovable-uploads/2dcaec3d-c8ea-4d16-9e6b-7201f485e229.png"
   }
 ];
 

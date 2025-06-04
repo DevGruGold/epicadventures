@@ -14,7 +14,7 @@ const Hero = () => {
       title: "Romantic Escape",
       subtitle: "Private Luxury for Two",
       description: "Indulge in exclusive moments with your special someone in the most breathtaking settings of Costa Rica.",
-      image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop",
+      image: "/lovable-uploads/f576b76f-5883-4d29-b3a3-c8d57eb48429.png",
       color: "from-pink-900/70 to-primary/80"
     },
     {
@@ -22,7 +22,7 @@ const Hero = () => {
       title: "Eco Explorer",
       subtitle: "Sustainable Luxury in Nature",
       description: "Immerse yourself in Costa Rica's rich biodiversity with exclusive access to pristine natural wonders.",
-      image: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=1000&auto=format&fit=crop",
+      image: "/lovable-uploads/9dcd0c06-3ef4-42b8-8f2f-83a42016afd1.png",
       color: "from-green-900/70 to-primary/80"
     },
     {
@@ -30,7 +30,7 @@ const Hero = () => {
       title: "Epic Adventure",
       subtitle: "Adrenaline & Luxury Combined",
       description: "Experience heart-racing adventures by day and unparalleled luxury by night in Costa Rica's most stunning locations.",
-      image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?q=80&w=1000&auto=format&fit=crop",
+      image: "/lovable-uploads/2dcaec3d-c8ea-4d16-9e6b-7201f485e229.png",
       color: "from-blue-900/70 to-primary/80"
     }
   ];
